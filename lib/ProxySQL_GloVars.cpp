@@ -139,7 +139,7 @@ void ProxySQL_GlobalVariables::process_opts_pre() {
 	}
 
 	if (opt->isSet("-V")) {
-		fprintf(stderr,"ProxySQL version %s, codename %s\n", PROXYSQL_VERSION, PROXYSQL_CODENAME);
+		fprintf(stderr,"ProxySQL version %s, codename %s (enhanced by Multiplay)\n", PROXYSQL_VERSION, PROXYSQL_CODENAME);
 		exit(EXIT_SUCCESS);
 	}
 
@@ -287,7 +287,7 @@ void ProxySQL_GlobalVariables::process_opts_post() {
 
 #ifdef DEBUG
 	if (GloVars.global.gdbg) {
-		fprintf(stderr,"ProxySQL version %s, codename %s\n", PROXYSQL_VERSION, PROXYSQL_CODENAME);
+		fprintf(stderr,"ProxySQL version %s, codename %s (enhanced by Multiplay)\n", PROXYSQL_VERSION, PROXYSQL_CODENAME);
 		fprintf(stderr,"Options:\n  gdbg:         %d\n  foreground:   %d\n  no-start:     %d\n  config:       %s\n  datadir:      %s\n  admin_pathdb: %s\n  admin_socket: %s\n", GloVars.global.gdbg, GloVars.global.foreground, glovars.nostart, glovars.proxy_configfile, glovars.proxy_datadir, glovars.proxy_admin_pathdb, glovars.proxy_admin_socket);
   }
 #endif

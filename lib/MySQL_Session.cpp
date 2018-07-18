@@ -2305,7 +2305,7 @@ __get_pkts_from_client:
 									if (stmt_meta==NULL) { // we couldn't find any metadata
 										stmt_meta_found=false;
 									}
-									stmt_meta=client_myds->myprot.get_binds_from_pkt(pkt.ptr,pkt.size,stmt_info, &stmt_meta);
+									stmt_meta=client_myds->myprot.get_binds_from_pkt(pkt.ptr,pkt.size,stmt_info, &stmt_meta, SLDH);
 									if (stmt_meta==NULL) {
 										l_free(pkt.size,pkt.ptr);
 										client_myds->setDSS_STATE_QUERY_SENT_NET();
@@ -2315,18 +2315,6 @@ __get_pkts_from_client:
 										//__sync_fetch_and_sub(&stmt_info->ref_count,1); // decrease reference count
 										stmt_info=NULL;
 										break;
-									}
-									// handle cases in which data was sent via STMT_SEND_LONG_DATA
-									for (uint16_t ii=0; ii<stmt_meta->num_params; ii++) {
-										void *_data=NULL;
-										unsigned long *_l=0;
-										my_bool * _is_null;
-										_data=SLDH->get(stmt_global_id,ii,&_l, &_is_null);
-										if (_data) { // data was sent via STMT_SEND_LONG_DATA
-											stmt_meta->binds[ii].length=_l;
-											stmt_meta->binds[ii].buffer=_data;
-											stmt_meta->binds[ii].is_null = _is_null;
-										}
 									}
 									if (stmt_meta_found==false) {
 										// previously we didn't find any metadata
